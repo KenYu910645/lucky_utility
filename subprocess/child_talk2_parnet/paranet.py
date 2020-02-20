@@ -6,8 +6,8 @@ from subprocess import PIPE, Popen
 import threading
 from queue import Queue, Empty
 
-child1 = subprocess.Popen(["python3 -u child1.py"], shell=True, stdout=subprocess.PIPE ,stderr=subprocess.PIPE ,bufsize=1,close_fds=True)# ,universal_newlines=True)
-child2 = subprocess.Popen(["python3 -u child2.py"], shell=True, stdout=subprocess.PIPE ,stderr=subprocess.PIPE ,bufsize=1,close_fds=True)# ,universal_newlines=True)
+child1 = subprocess.Popen(["python3", "-u" ,"child1.py"], shell=False, stdout=subprocess.PIPE ,stderr=subprocess.PIPE ,bufsize=1,close_fds=True)# ,universal_newlines=True)
+child2 = subprocess.Popen(["python3", "-u" ,"child2.py"], shell=False, stdout=subprocess.PIPE ,stderr=subprocess.PIPE ,bufsize=1,close_fds=True)# ,universal_newlines=True)
 # readlines() # read()
 # child.poll() # Check if child is terminated # Return None if child process is not running # Return exiting code if child process is still running 
 # child.wait() # wait for child 
