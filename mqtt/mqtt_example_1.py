@@ -9,7 +9,7 @@ t_start = time.time()
 # keepalive (sec), How long to disconnect broken if didn't receive response from broker
 # publish mqtt server : http://www.mqtt-dashboard.com/
 #mqtt_obj = MQTT_OBJ(client_id="solamr_1", broker_ip="broker.hivemq.com", port=1883, keepalive=10, clean_session=True)
-mqtt_obj = MQTT_OBJ(client_id="solamr_1", broker_ip="192.168.50.10", port=1883, keepalive=10, clean_session=True)
+mqtt_obj = MQTT_OBJ(client_id="solamr_1", broker_ip="10.0.0.1", port=1883, keepalive=10, clean_session=True)
 # ------ Add Subscriber -----#
 def topic_CB(client, userdata, message):# Callback fucntion
     print("[mqtt_example] Latency : " + str(time.time() - t_start) + " sec.")
@@ -19,7 +19,7 @@ mqtt_obj.add_subscriber([( "topic_2_to_1", 0, topic_CB)])
 #-------persistant publisher--------#
 while True:
     # MQTT Publish msg, if retain set to True, broker will publish the retain msg to every subscirber whenever they subscribe this topic.
-    rc = mqtt_obj.publish("topic_1_to_2", "How are you doing today ?", qos = 0, retain = False) # non-blocking msg
+    rc = mqtt_obj.publish("topic_1_to_2", "How are you doing today ?," + str(time.time()), qos = 0, retain = False) # non-blocking msg
     t_start = time.time()
     # Waiting result of publish
     
