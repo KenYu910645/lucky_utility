@@ -7,7 +7,7 @@ mqtt_obj = MQTT_OBJ(client_id="solamr_2", broker_ip="10.0.0.1", port=1883, keepa
 
 # ------ Add Subscriber -----#
 def topic_CB(client, userdata, message):# Callback fucntion 
-    print( str(message.payload).split(',') )
+    print( str(float(str(message.payload).split(',')[1]) - time.time()) )
     print("[MQTT] topic_CB :  " + str(message.payload) + "(Q" + str(message.qos) + ", R" + str(message.retain) + ")")
     mqtt_obj.publish("topic_2_to_1", "I'm fine, thank you, and you?", qos = 0, retain = False) # non-blocking msg
 mqtt_obj.add_subscriber([( "topic_1_to_2", 0, topic_CB)])
