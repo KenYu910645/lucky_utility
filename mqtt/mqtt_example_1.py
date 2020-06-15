@@ -14,14 +14,16 @@ avg = 0
 mqtt_obj = MQTT_OBJ(client_id="solamr_1", broker_ip="10.0.0.1", port=1883, keepalive=10, clean_session=True)
 # ------ Add Subscriber -----#
 def topic_CB(client, userdata, message):# Callback fucntion
+    global avg, count
     dt = time.time() - t_start
     print("[mqtt_example] Latency : " + str(dt) + " sec.")
-    avg += dt/10
+    avg += dt/100
+    count += 1
     print("[mqtt_example] topic_CB :  " + str(message.payload) + "(Q" + str(message.qos) + ", R" + str(message.retain) + ")")
 mqtt_obj.add_subscriber([( "topic_2_to_1", 0, topic_CB)])
 
 #-------persistant publisher--------#
-while count < 10:
+while count < 100:
     # MQTT Publish msg, if retain set to True, broker will publish the retain msg to every subscirber whenever they subscribe this topic.
     rc = mqtt_obj.publish("topic_1_to_2", "How are you doing today ?," + str(time.time()), qos = 0, retain = False) # non-blocking msg
     t_start = time.time()
