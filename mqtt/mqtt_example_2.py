@@ -3,7 +3,7 @@ import time # for sleep
 
 # ------ MQTT Connection ------ #
 # mqtt_obj = MQTT_OBJ(client_id="solamr_2", broker_ip="broker.hivemq.com", port=1883, keepalive=10, clean_session=True)
-mqtt_obj = MQTT_OBJ(client_id="solamr_2", broker_ip="192.168.50.10", port=1883, keepalive=10, clean_session=True)
+mqtt_obj = MQTT_OBJ(client_id="solamr_2", broker_ip="10.0.0.1", port=1883, keepalive=10, clean_session=True)
 
 # ------ Add Subscriber -----#
 def topic_CB(client, userdata, message):# Callback fucntion 
