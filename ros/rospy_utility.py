@@ -59,6 +59,7 @@ class Marker_Manager():
         marker.scale.x = size
         marker.scale.y = size
         marker.scale.z = size
+        
         marker.color.a = 1.0
         marker.color.r = RGB[0]/255.0
         marker.color.g = RGB[1]/255.0
@@ -99,6 +100,14 @@ class Marker_Manager():
                     for i in range(num_seg):
                         points.append((radius*cos(ang), radius*sin(ang)))
                         ang += ang_increment
+                p_list = []
+                for i in points:
+                    p = Point()
+                    p.x = i[0]
+                    p.y = i[1]
+                    p_list.append(p)
+                self.marker_array.markers[array_idx].points = p_list
+            elif type_id == 7: # SPHERE_LIST
                 p_list = []
                 for i in points:
                     p = Point()
