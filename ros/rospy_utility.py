@@ -1,11 +1,12 @@
 #!/usr/bin/env python
 import rospy
-import tf2_ros # For exception
+import tf2_ros 
+from geometry_msgs.msg import TransformStamped
 import tf # conversion euler
 from math import atan2,acos,sqrt,pi,sin,cos,tan
 from visualization_msgs.msg import Marker, MarkerArray # Debug drawing
 from geometry_msgs.msg import Point
-
+import tf_conversions
 import time 
 
 ############################
@@ -107,7 +108,7 @@ class Marker_Manager():
                     p.y = i[1]
                     p_list.append(p)
                 self.marker_array.markers[array_idx].points = p_list
-            elif type_id == 7: # SPHERE_LIST
+            elif type_id == 7 or type_id == 5: # SPHERE_LIST or LINE_LIST
                 p_list = []
                 for i in points:
                     p = Point()
@@ -201,3 +202,23 @@ def get_tf(tf_buffer, frame_id, child_frame_id):
             t.transform.rotation.w)
         (_,_,yaw) = tf.transformations.euler_from_quaternion(quaternion)
         return (t.transform.translation.x, t.transform.translation.y, yaw)
+
+def send_tf(xyt, frame_id, child_frame_id):
+    '''
+    Argument:
+        xyt: (x,y,theta)
+    '''
+    br = tf2_ros.TransformBroadcaster()
+    t = TransformStamped()
+    t.header.stamp = rospy.Time.now()
+    t.header.frame_id = frame_id
+    t.child_frame_id = child_frame_id
+    t.transform.translation.x = xyt[0]
+    t.transform.translation.y = xyt[1]
+    t.transform.translation.z = 0.0
+    q = tf_conversions.transformations.quaternion_from_euler(0, 0,xyt[2])
+    t.transform.rotation.x = q[0]
+    t.transform.rotation.y = q[1]
+    t.transform.rotation.z = q[2]
+    t.transform.rotation.w = q[3]
+    br.sendTransform(t)
