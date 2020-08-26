@@ -173,6 +173,21 @@ def cal_ang_distance(ang1, ang2, clockwise = False):
         if (not is_same_sign(ang1, ang2)) and ang2 < 0:
             ang2 += 2*pi
         return abs(ang2 - ang1)
+
+def cal_avg_angle(ang_list):
+    '''
+    Argument:
+        ang_list : [ang1, ang2, ang3, ....]
+    Return:
+        flaot - angle that in [-pi, pi]
+    '''
+    sum_x = 0
+    sum_y = 0 
+    for ang in ang_list:
+        sum_x += cos(ang)
+        sum_y += sin(ang)
+    return atan2(sum_y/len(ang_list), sum_x/len(ang_list))
+
 ##########
 ### TF ###
 ##########
