@@ -188,6 +188,26 @@ def cal_avg_angle(ang_list):
         sum_y += sin(ang)
     return atan2(sum_y/len(ang_list), sum_x/len(ang_list))
 
+
+def vec_trans_coordinate(vec, trans):
+    '''
+    Transform a vector from coordinate_A to coordinate_B
+    Argument:
+        vec: (x,y), vector that measure at coordinate_A
+        trans:(x,y,theta), coordinate_A measure at coordinate_B
+    Return:
+        vec: (x,y), vector that measure at coordinate_B
+    For example:
+        if coordinate_A is /map, coordinate_B is /base_link, you want to know 
+        the point that 1m in front of robot relative to /map.
+        vec will be (1,0), since it's 1m in front of /base_link
+        trans will be /map->/base_link, localization result
+        Return vec will be on /map
+    '''
+    return (trans[0] + cos(trans[2])*vec[0] - sin(trans[2])*vec[1],
+            trans[1] + sin(trans[2])*vec[0] + cos(trans[2])*vec[1])
+
+
 ##########
 ### TF ###
 ##########
