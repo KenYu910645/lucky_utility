@@ -211,7 +211,7 @@ def vec_trans_coordinate(vec, trans):
 ##########
 ### TF ###
 ##########
-def get_tf(tf_buffer, frame_id, child_frame_id):
+def get_tf(tf_buffer, frame_id, child_frame_id, ignore_time=False):
     '''
     get tf frame_id -> child_frame_id
     Arguments:
@@ -222,10 +222,16 @@ def get_tf(tf_buffer, frame_id, child_frame_id):
         None, if tf is unvaliable
     '''
     try:
-        t = tf_buffer.lookup_transform(frame_id,
-                                       child_frame_id,
-                                       rospy.Time(),
-                                       rospy.Duration(0.1))
+        if ignore_time:
+            t = tf_buffer.lookup_transform(frame_id,
+                                            child_frame_id,
+                                            rospy.Time(0),
+                                            rospy.Duration(0.1))
+        else:
+            t = tf_buffer.lookup_transform(frame_id,
+                                            child_frame_id,
+                                            rospy.Time(),
+                                            rospy.Duration(0.1))
     except (tf2_ros.LookupException, tf2_ros.ConnectivityException, tf2_ros.ExtrapolationException):
         rospy.logwarn("[rap_controller] Can't get tf frame: " + frame_id + " -> " + child_frame_id)
         return None
@@ -238,7 +244,7 @@ def get_tf(tf_buffer, frame_id, child_frame_id):
         (_,_,yaw) = tf.transformations.euler_from_quaternion(quaternion)
         return (t.transform.translation.x, t.transform.translation.y, yaw)
 
-def send_tf(xyt, frame_id, child_frame_id):
+def send_tf(xyt, frame_id, child_frame_id, z_offset=0.0):
     '''
     Argument:
         xyt: (x,y,theta)
@@ -250,7 +256,7 @@ def send_tf(xyt, frame_id, child_frame_id):
     t.child_frame_id = child_frame_id
     t.transform.translation.x = xyt[0]
     t.transform.translation.y = xyt[1]
-    t.transform.translation.z = 0.0
+    t.transform.translation.z = z_offset
     q = tf_conversions.transformations.quaternion_from_euler(0, 0,xyt[2])
     t.transform.rotation.x = q[0]
     t.transform.rotation.y = q[1]

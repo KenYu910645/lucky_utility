@@ -38,9 +38,9 @@ if [ "$ENV" = "solamr" ];then
     alias tele='rosrun ar teleop_key.py'
     alias tf='rosrun tf view_frames;sleep 6;evince frames.pdf'
     alias start=' roslaunch zed_rtabmap_example rviz_for_solamr.launch'
-    export ROS_IP="192.168.50.10"
+    # export ROS_IP="192.168.50.10"
     #export ROS_MASTER_URI=http://192.168.50.21:11311 # point to rpi
-    export ROS_MASTER_URI=http://localhost:11311 # point to rpi
+    # export ROS_MASTER_URI=http://localhost:11311 # point to rpi
     roscd solamr_monitor
 fi
 if [ "$ENV" = "naive_controller" ];then
