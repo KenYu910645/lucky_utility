@@ -1,4 +1,2 @@
 #! /bin/bash
-
-
-echo "source ~/lucky_utility/bashrc/self_define.bashrc" >> ~/.bashrc
+echo "source ~/lucky_utility/bashrc/general.bashrc" >> ~/.bashrc
