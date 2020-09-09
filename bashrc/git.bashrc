@@ -1,4 +1,4 @@
-function pull {
+function luckypull {
     roscd solamr
     echo "===== Big project ====="
     git pull
