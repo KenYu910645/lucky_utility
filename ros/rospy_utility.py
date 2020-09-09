@@ -233,7 +233,7 @@ def get_tf(tf_buffer, frame_id, child_frame_id, ignore_time=False):
                                             rospy.Time(),
                                             rospy.Duration(0.1))
     except (tf2_ros.LookupException, tf2_ros.ConnectivityException, tf2_ros.ExtrapolationException):
-        rospy.logwarn("[rap_controller] Can't get tf frame: " + frame_id + " -> " + child_frame_id)
+        rospy.logwarn("[get_tf] Can't get tf frame: " + frame_id + " -> " + child_frame_id)
         return None
     else:
         quaternion = (
