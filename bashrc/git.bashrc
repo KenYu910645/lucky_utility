@@ -18,3 +18,12 @@ function luckypull {
     git pull
     roscd solamr
 }
+
+
+function luckypush
+{
+    roscd solamr
+    git add --all
+    git commit 
+    git push 
+}
