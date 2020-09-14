@@ -45,4 +45,3 @@ function task
         rosservice call /$(ROBOT_NAME)/fsm/task  "data: '$1'"
     fi
 }
-}
