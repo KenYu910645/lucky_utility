@@ -25,23 +25,23 @@ function gate
 function task
 {
     if [ $1 = "q" ]; then
-        rosservice call /$(ROBOT_NAME)/fsm/task  "data: 'abort'"
+        rosservice call /$ROBOT_NAME/fsm/task  "data: 'abort'"
 
     elif [ $1 = "1" ]; then
-        rosservice call /$(ROBOT_NAME)/fsm/task  "data: 'single_AMR'"
+        rosservice call /$ROBOT_NAME/fsm/task  "data: 'single_AMR'"
 
     elif [ $1 = "2" ]; then
-        rosservice call /$(ROBOT_NAME)/fsm/task  "data: 'double_AMR'"
+        rosservice call /$ROBOT_NAME/fsm/task  "data: 'double_AMR'"
 
     elif [ $1 = "j1" ]; then
-        rosservice call /$(ROBOT_NAME)/fsm/task  "data: 'jp2Single_AMR'"
+        rosservice call /$ROBOT_NAME/fsm/task  "data: 'jp2Single_AMR'"
 
     elif [ $1 = "j2" ]; then
-        rosservice call /$(ROBOT_NAME)/fsm/task  "data: 'jp2Double_Assembled'"
+        rosservice call /$ROBOT_NAME/fsm/task  "data: 'jp2Double_Assembled'"
 
     elif [ $1 = "ja" ]; then
-        rosservice call /$(ROBOT_NAME)/fsm/task  "data: 'jp2Single_Assembled'"
+        rosservice call /$ROBOT_NAME/fsm/task  "data: 'jp2Single_Assembled'"
     else
-        rosservice call /$(ROBOT_NAME)/fsm/task  "data: '$1'"
+        rosservice call /$ROBOT_NAME/fsm/task  "data: '$1'"
     fi
 }
