@@ -24,6 +24,6 @@ function luckypush
 {
     roscd solamr
     git add --all
-    git commit 
+    git commit -m "$1" 
     git push 
 }
