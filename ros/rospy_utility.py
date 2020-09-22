@@ -188,7 +188,6 @@ def cal_avg_angle(ang_list):
         sum_y += sin(ang)
     return atan2(sum_y/len(ang_list), sum_x/len(ang_list))
 
-
 def vec_trans_coordinate(vec, trans):
     '''
     Transform a vector from coordinate_A to coordinate_B
@@ -207,7 +206,6 @@ def vec_trans_coordinate(vec, trans):
     return (trans[0] + cos(trans[2])*vec[0] - sin(trans[2])*vec[1],
             trans[1] + sin(trans[2])*vec[0] + cos(trans[2])*vec[1])
 
-
 ##########
 ### TF ###
 ##########
@@ -222,21 +220,17 @@ def get_tf(tf_buffer, frame_id, child_frame_id, ignore_time=False, is_warn=True)
         None, if tf is unvaliable
     '''
     try:
-        if ignore_time:
-            t = tf_buffer.lookup_transform(frame_id,
-                                            child_frame_id,
-                                            rospy.Time(0),
-                                            rospy.Duration(0.1))
-        else:
-            t = tf_buffer.lookup_transform(frame_id,
-                                            child_frame_id,
-                                            rospy.Time(),
-                                            rospy.Duration(0.1))
+        t = tf_buffer.lookup_transform(frame_id,
+                                        child_frame_id,
+                                        rospy.Time(0), # should be rospy.Time.now()
+                                        rospy.Duration(0.1))
     except (tf2_ros.LookupException, tf2_ros.ConnectivityException, tf2_ros.ExtrapolationException):
         if is_warn:
             rospy.logwarn("[get_tf] Can't get tf frame: " + frame_id + " -> " + child_frame_id)
         return None
     else:
+        if (not ignore_time) and (rospy.Time.now() - t.header.stamp).to_sec() > 0.5: # sec
+            return None
         quaternion = (
             t.transform.rotation.x,
             t.transform.rotation.y,
