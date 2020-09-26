@@ -12,7 +12,7 @@ import time
 ############################
 ### Visulization Markers ###
 ############################
-ARC_RESO = 50 # points/radain
+ARC_RESO = 300 # points/radain
 class Marker_Manager():
 
     def __init__(self, topic_name):
@@ -75,6 +75,7 @@ class Marker_Manager():
         '''
         points : ((x1,y1), (x2,y2), ....) - for line
         points : (x1,xy) - for shpere
+        points : (x,y) - for arc, represent arc center
         text - string
         radius - float - for ARC
         angle_range - (-pi,pi) - for ARC, draw from ang[0] to ang[1], counter-clockwise
@@ -91,22 +92,22 @@ class Marker_Manager():
                 self.marker_array.markers[array_idx].pose.position.x = points[0]
                 self.marker_array.markers[array_idx].pose.position.y = points[1]
             elif type_id == 4: # LINE_STRIP
+                # Get point_list
+                p_list = []
                 if radius != None and angle_range != None:
                     # ARC
                     ang_distance = cal_ang_distance(angle_range[0], angle_range[1], clockwise = False)
                     num_seg = int(ang_distance*ARC_RESO)
                     ang_increment = 1.0/ARC_RESO
                     ang = angle_range[0]
-                    points = []
                     for i in range(num_seg):
-                        points.append((radius*cos(ang), radius*sin(ang)))
+                        p_list.append(Point(points[0] + radius*cos(ang), points[1] + radius*sin(ang), 0.0))
                         ang += ang_increment
-                p_list = []
-                for i in points:
-                    p = Point()
-                    p.x = i[0]
-                    p.y = i[1]
-                    p_list.append(p)
+                else:
+                    for i in points:
+                        p_list.append(Point(i[0], i[1], 0.0))
+                
+                # Markers update
                 self.marker_array.markers[array_idx].points = p_list
             elif type_id == 7 or type_id == 5: # SPHERE_LIST or LINE_LIST
                 p_list = []
