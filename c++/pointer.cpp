@@ -1,7 +1,5 @@
 #include <iostream>     
 using namespace std; 
-
-
 /*
 Tips: Read from right to left and * represent "pointing to"
 
@@ -19,14 +17,13 @@ int const * foo; // 一個 pointer，指向 const int 變數。
 int * const foo; // 一個 const pointer，指向 int 變數。
 int const * const foo; // 一個 const pointer，指向 const int 變數。
 */
+
 void print_address_and_value(int* a);
-
-
 
 int main() 
 {   
     cout << "=======================" << endl;
-    cout << "&pointer means get the value of the pointer points at" << endl;
+    cout << "*pointer means get the value of the pointer points at" << endl;
     cout << "&value means get the pointer of that value" << endl;
     int x = 0;
     cout << "int x = 0" << endl;
@@ -51,7 +48,7 @@ int main()
     cout << "*Array = "   << *Array   << endl; // get value of A[0]
     cout << "Array[0] = " << Array[0] << endl; // get value from A[0]
     cout << "=======================" << endl;
-    cout << "Array + 1 = "   << Array+1  << endl; 
+    cout << "Array + 1 = "   << Array + 1  << endl;
     cout << "*(Array + 1) = " << *(Array + 1) << endl; // get value
     cout << "=======================" << endl;
     cout << "(&Array[1]) + 1 = "   << (&Array[1]) + 1 << endl; 

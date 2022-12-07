@@ -53,7 +53,9 @@ int main()
     cout << "func_ptr(1,2) = " << func_ptr(1,2) << endl;
 
     cout << "=======================" << endl;
-    // Declare a function pointer
+    
+    
+    // Declare a function pointer for sorting function
     bool (*func_cmp_ptr)(int, int);
     
     //sort decendent
@@ -66,6 +68,5 @@ int main()
     cout << "sort asendently: " << endl;
     sort_two_number(1, 2, func_cmp_ptr);
     
-
     return 0; 
 }

@@ -6,6 +6,8 @@ Inline function tell compiler to copy-paste function segment when you call the f
 instead of actually calling the fucntion
 
 This is good for very small fucntion that will be called many time, save time
+
+To paste code segment or use procudeure call is fully dependent on compiler
 */
 
 inline int func(int x){
