@@ -7,13 +7,7 @@ Every time volatile variable is refered, system will go back to memory and read,
 This is good for variable that constantly changing, e.g., clock_tick or value that change during interrput
 * For global variable that been change during interrupt 
 * For global variable in multithreading
-
-
-
 */
-
-
-
 int main()
 {
     volatile int x = 0;
